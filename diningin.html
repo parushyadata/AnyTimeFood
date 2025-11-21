@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Zomato Collections Example</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;500;400&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #fafafa;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 30px 48px 8px 48px;
+      background: #fff;
+      box-shadow: 0 1px 0 #ececec;
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.2rem;
+      color: #181818;
+      font-weight: bold;
+      letter-spacing: -1.5px;
+    }
+    .logo span { color: #ef4f5f; }
+    .searchbar-wrap {
+      margin-left: 32px;
+      flex: 1;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .location-input, .search-input {
+      border: 1px solid #e4e4e4;
+      border-radius: 8px;
+      background: #f8f8f8;
+      padding: 11px 14px;
+      margin-right: 6px;
+      font-size: 1rem;
+      width: 220px;
+    }
+    .search-input {
+      width: 380px;
+      margin-right: 0;
+    }
+    .nav-auth {
+      margin-left: 30px;
+      display: flex;
+      gap: 26px;
+      font-size: 1rem;
+      font-family: 'Montserrat',sans-serif;
+      font-weight: 500;
+      color: #444;
+    }
+    .nav-auth a { text-decoration: none; color: #444; }
+    .nav-auth a:hover { color: #ef4f5f; }
+
+    /* Tabs Navigation */
+    .tabs {
+      display: flex;
+      gap: 44px;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 20px 56px 0 56px;
+      background: #fff;
+    }
+    .tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      color: #999;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 7px;
+      transition: color 0.18s;
+    }
+    .tab.selected {
+      color: #ef4f5f;
+    }
+    .tab.selected::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2.5px;
+      background: #ef4f5f;
+      border-radius: 2px;
+    }
+    .tab svg {
+      width: 36px; height: 36px;
+      margin-bottom: 2px;
+      display: block;
+      opacity: 0.7;
+    }
+    .tab.selected svg { opacity: 1; }
+    
+    /* Main Section */
+    .collections-section {
+      max-width: 1200px;
+      margin: 32px auto 0;
+      padding: 0 26px;
+    }
+    .collections-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 3px;
+    }
+    .collections-header h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 2rem;
+      margin: 0;
+    }
+    .collections-link {
+      color: #ef4f5f;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .collections-desc {
+      color: #666;
+      font-size: 1.04rem;
+      margin-bottom: 15px;
+      margin-top: 2px;
+    }
+    /* Cards */
+    .card-list {
+      display: flex;
+      gap: 22px;
+      margin-bottom: 24px;
+    }
+    .collection-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 2px 18px rgb(60 60 60 / 10%);
+      background: #111;
+      transition: transform 0.2s;
+      min-width: 220px;
+      max-width: 240px;
+      flex: 1 1 220px;
+      height: 275px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .collection-card img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      transition: opacity 0.2s;
+    }
+    .collection-card:hover {
+      transform: translateY(-7px) scale(1.02);
+      box-shadow: 0 8px 28px 0 rgb(239 79 95 / 30%);
+    }
+    .card-gradient {
+      position: absolute;
+      left: 0; right: 0; bottom: 0; top: 0;
+      background: linear-gradient(0deg,rgba(35,35,35,0.82) 21%,rgba(35,35,35,0.188) 77%);
+      z-index: 2;
+    }
+    .card-content {
+      position: relative;
+      z-index: 3;
+      color: #fff;
+      padding: 0 18px 26px 18px;
+      font-family: 'Montserrat', sans-serif;
+      pointer-events: none;
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .card-places {
+      font-size: 1rem;
+      color: #e3e3e3;
+      font-weight: 500;
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .header, .tabs { padding: 7vw 3vw 0 3vw; }
+      .collections-section { padding: 0 6vw; }
+      .card-list { flex-wrap: wrap; gap: 16px; }
+      .collection-card { min-width: 150px; max-width: 49vw; height: 185px;}
+    }
+    .food-grid-section {
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+  padding: 0 28px;
+}
+
+.food-grid-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  margin: 24px 0 18px 0;
+  font-weight: 600;
+  color: #222;
+}
+
+.food-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px 28px;
+  justify-content: flex-start;
+}
+
+.food-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgb(80 80 80 / 10%);
+  overflow: hidden;
+  width: 320px;
+  margin-bottom: 12px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.food-card:hover {
+  box-shadow: 0 6px 30px rgb(239 79 95 / 14%);
+  transform: translateY(-6px) scale(1.02);
+}
+
+.card-img-wrap {
+  position: relative;
+  height: 172px;
+  width: 100%;
+  overflow: hidden;
+  background: #eee;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.promoted {
+  position: absolute;
+  top: 10px;
+  left: 9px;
+  background: rgba(20,20,20,0.68);
+  color: #fff;
+  font-size: 0.93rem;
+  padding: 2px 11px;
+  border-radius: 10px;
+  z-index: 2;
+  font-family: 'Roboto',sans-serif;
+}
+
+.offer-banner {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  background: #2874f0;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 5px 20px 5px 15px;
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+  z-index: 2;
+  font-family: 'Montserrat',sans-serif;
+}
+
+.offer-banner.blue {
+  background: #2874f0;
+}
+
+.food-card-body {
+  padding: 18px 17px 14px 17px;
+  display: flex;
+  flex-direction: column;
+  min-height: 103px;
+}
+
+.restaurant-title {
+  font-family: 'Montserrat',sans-serif;
+  font-size: 1.13rem;
+  font-weight: 700;
+  margin-bottom: 3px;
+  color: #181818;
+}
+
+.rating {
+  background: #228c42;
+  color: white;
+  padding: 2px 10px 2px 7px;
+  font-size: 0.99rem;
+  font-weight: 600;
+  border-radius: 14px;
+  margin-left: 6px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.food-card-desc {
+  color: #888;
+  font-size: 0.98rem;
+  margin-bottom: 8px;
+}
+.food-card-meta {
+  display: flex;
+  align-items: center;
+  font-size: 0.97rem;
+  gap: 5px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.meta-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: #ccc;
+  border-radius: 50%;
+  margin: 0 7px;
+}
+
+.meta-dist {
+  text-align: right;
+  color: #222;
+  font-size: 0.97rem;
+}
+
+.food-card-time {
+  font-size: 0.95rem;
+  color: #e45756;
+  font-weight: 500;
+}
+
+.food-card-time.close-soon {
+  font-weight: 400;
+  color: #e45756;
+}
+
+.food-card-time.red {
+  color: #e45756;
+}
+
+/* Responsive styles */
+@media (max-width: 1000px) {
+  .food-card-list {
+    justify-content: center;
+  }
+  .food-card {
+    width: 90vw;
+    max-width: 340px;
+    margin-bottom: 15px;
+  }
+}
+
+    
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="logo"><span>AnyTime</span>Food</span>
+    <div class="searchbar-wrap">
+      <input class="location-input" value="Ywca, Ashoka Rd, Hanu" />
+      <input class="search-input" placeholder="Search for restaurant, cuisine or a dish" />
+    </div>
+    <div class="nav-auth">
+      <a href="#">Log in</a>
+      <a href="#">Sign up</a>
+    </div>
+  </div>
+  <div class="tabs">
+    <div class="tab selected">
+      <!-- User SVG icon -->
+      <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="12" r="6" stroke="#ef4f5f" stroke-width="1.6"/><path d="M6 26c0-4 4.477-7.5 10-7.5S26 22 26 26" stroke="#ef4f5f" stroke-width="1.6" stroke-linecap="round"/></svg>
+      Dining Out
+    </div>
+    <div class="tab">
+      <svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="12" rx="2" stroke="#777" stroke-width="1.4"/><path d="M10 23v2h12v-2" stroke="#777" stroke-width="1.4" stroke-linecap="round"/></svg>
+      Delivery
+    </div>
+    <div class="tab">
+      <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="8" stroke="#777" stroke-width="1.4"/><path d="M16 10v8l6 3" stroke="#777" stroke-width="1.4" stroke-linecap="round"/></svg>
+      Nightlife
+    </div>
+  </div>
+  <section class="collections-section">
+    <div class="collections-header">
+      <h2>Collections</h2>
+      <a class="collections-link" href="#">All collections in Delhi NCR &rarr;</a>
+    </div>
+    <div class="collections-desc">
+      Explore curated lists of top restaurants, cafes, pubs, and bars in Delhi NCR, based on trends
+    </div>
+    <div class="card-list">
+      <div class="collection-card">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="">
+        <div class="card-gradient"></div>
+        <div class="card-content">
+          <div class="card-title">Insta-worthy spots</div>
+          <div class="card-places">38 Places &rarr;</div>
+        </div>
+      </div>
+      <div class="collection-card">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="">
+        <div class="card-gradient"></div>
+        <div class="card-content">
+          <div class="card-title">Top trending spots</div>
+          <div class="card-places">29 Places &rarr;</div>
+        </div>
+      </div>
+      <div class="collection-card">
+        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80" alt="">
+        <div class="card-gradient"></div>
+        <div class="card-content">
+          <div class="card-title">New in town</div>
+          <div class="card-places">13 Places &rarr;</div>
+        </div>
+      </div>
+      <div class="collection-card">
+        <img src="https://images.unsplash.com/photo-1421622548261-c45bfe178854?auto=format&fit=crop&w=400&q=80" alt="">
+        <div class="card-gradient"></div>
+        <div class="card-content">
+          <div class="card-title">Omakase bars</div>
+          <div class="card-places">7 Places &rarr;</div>
+        </div>
+      </div>
+    </div>
+    <!-- Filters can go here -->
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; font-family:'Montserrat';">
+      <div style="background:#f6f6f6; border:1px solid #dedede; color:#818181; border-radius:25px; padding:7px 21px; font-size:15px;">Filters</div>
+      <div style="background:#f6f6f6; border:1px solid #dedede; color:#818181; border-radius:25px; padding:7px 21px; font-size:15px;">Offers</div>
+      <div style="background:#f6f6f6; border:1px solid #dedede; color:#818181; border-radius:25px; padding:7px 21px; font-size:15px;">Rating: 4.5+</div>
+      <div style="background:#f6f6f6; border:1px solid #dedede; color:#818181; border-radius:25px; padding:7px 21px; font-size:15px;">Pet friendly</div>
+      <div style="background:#f6f6f6; border:1px solid #dedede; color:#818181; border-radius:25px; padding:7px 21px; font-size:15px;">Outdoor seating</div>
+      <div style="background:#f6f6f6; border:1px solid #dedede; color:#818181; border-radius:25px; padding:7px 21px; font-size:15px;">Serves Alcohol</div>
+      <div style="background:#f6f6f6; border:1px solid #dedede; color:#818181; border-radius:25px; padding:7px 21px; font-size:15px;">Open Now</div>
+    </div>
+  </section>
+  <!-- Best Food Grid Section -->
+<section class="food-grid-section">
+  <h2 class="food-grid-title">Best Food in Delhi NCR</h2>
+  <div class="food-card-list">
+    <!-- CARD 1 -->
+    <div class="food-card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Dhaba Estd 1986 Delhi">
+        <span class="promoted">Promoted</span>
+        <span class="offer-banner blue">Flat 10% OFF</span>
+      </div>
+      <div class="food-card-body">
+        <div class="restaurant-title">Dhaba - Estd 1986 Delhi <span class="rating green">4.4</span></div>
+        <div class="food-card-desc">North Indian, Desserts<br>Connaught Place, New Delhi</div>
+        <div class="food-card-meta">
+          <span class="meta-text">&#8377;1,400 for two</span>
+          <span class="meta-dot"></span>
+          <span class="meta-dist">1.3 km</span>
+        </div>
+        <div class="food-card-time close-soon">Opens at 12noon</div>
+      </div>
+    </div>
+    <!-- CARD 2 -->
+    <div class="food-card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80" alt="Ce La Vie Kitchen & Bar">
+        <span class="promoted">Promoted</span>
+        <span class="offer-banner blue">Flat 20% OFF</span>
+      </div>
+      <div class="food-card-body">
+        <div class="restaurant-title">Cé La Vie Kitchen & Bar <span class="rating green">4.2</span></div>
+        <div class="food-card-desc">North Indian, Mediterranean<br>Connaught Place, New Delhi</div>
+        <div class="food-card-meta">
+          <span class="meta-text">&#8377;2,200 for two</span>
+          <span class="meta-dot"></span>
+          <span class="meta-dist">1.4 km</span>
+        </div>
+        <div class="food-card-time close-soon red">Closes in 7 minutes</div>
+      </div>
+    </div>
+    <!-- CARD 3 -->
+    <div class="food-card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1421622548261-c45bfe178854?auto=format&fit=crop&w=400&q=80" alt="Local">
+        <span class="promoted">Promoted</span>
+        <span class="offer-banner blue">Flat 10% OFF</span>
+      </div>
+      <div class="food-card-body">
+        <div class="restaurant-title">Local <span class="rating green">4.2</span></div>
+        <div class="food-card-desc">North Indian, Continental<br>Connaught Place, New Delhi</div>
+        <div class="food-card-meta">
+          <span class="meta-text">&#8377;2,600 for two</span>
+          <span class="meta-dot"></span>
+          <span class="meta-dist">1.2 km</span>
+        </div>
+        <div class="food-card-time close-soon red">Closes in 7 minutes</div>
+      </div>
+    </div>
+    <!-- CARD 4 -->
+    <div class="food-card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Dhaba 2">
+        <span class="promoted">Promoted</span>
+        <span class="offer-banner blue">Flat 15% OFF</span>
+      </div>
+      <div class="food-card-body">
+        <div class="restaurant-title">Dhaba 2 <span class="rating green">4.2</span></div>
+        <div class="food-card-desc">North Indian, Chinese<br>Connaught Place, New Delhi</div>
+        <div class="food-card-meta">
+          <span class="meta-text">&#8377;1,800 for two</span>
+          <span class="meta-dot"></span>
+          <span class="meta-dist">1.0 km</span>
+        </div>
+        <div class="food-card-time close-soon">Opens at 1pm</div>
+      </div>
+    </div>
+    <!-- CARD 5 -->
+    <div class="food-card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Trendy Cafe">
+        <span class="promoted">Promoted</span>
+        <span class="offer-banner blue">Flat 15% OFF</span>
+      </div>
+      <div class="food-card-body">
+        <div class="restaurant-title">Trendy Cafe <span class="rating green">4.3</span></div>
+        <div class="food-card-desc">Cafe, Healthy Food<br>Connaught Place, New Delhi</div>
+        <div class="food-card-meta">
+          <span class="meta-text">&#8377;1,200 for two</span>
+          <span class="meta-dot"></span>
+          <span class="meta-dist">0.9 km</span>
+        </div>
+        <div class="food-card-time close-soon">Opens at 9am</div>
+      </div>
+    </div>
+    <!-- CARD 6 -->
+    <div class="food-card">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80" alt="Garden Patio">
+        <span class="promoted">Promoted</span>
+        <span class="offer-banner blue">Flat 20% OFF</span>
+      </div>
+      <div class="food-card-body">
+        <div class="restaurant-title">Garden Patio <span class="rating green">4.5</span></div>
+        <div class="food-card-desc">Cafe, Outdoor Seating<br>Connaught Place, New Delhi</div>
+        <div class="food-card-meta">
+          <span class="meta-text">&#8377;1,900 for two</span>
+          <span class="meta-dot"></span>
+          <span class="meta-dist">2.1 km</span>
+        </div>
+        <div class="food-card-time close-soon red">Closes in 7 minutes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

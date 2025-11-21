@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AnyTimeFood</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@700&family=Pacifico&family=Roboto&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #fafafa;
+      color: #333;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-family: 'Pacifico', cursive;
+      font-weight: bold;
+      font-size: 24px;
+      color: #333;
+    }
+    .logo span {
+      background: #ffcb05;
+      border-radius: 50%;
+      padding: 4px 9px;
+      margin-left: 6px;
+      font-weight: 700;
+      font-family: 'Archivo', sans-serif;
+    }
+
+    nav a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    nav a.order-now {
+      background: #ffcb05;
+      color: #000;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 700;
+      margin-left: 40px;
+      transition: background 0.3s ease;
+    }
+
+    nav a.order-now:hover {
+      background: #e6b804;
+    }
+
+    .content {
+      display: flex;
+      max-width: 1100px;
+      margin: 60px auto;
+      align-items: center;
+      gap: 60px;
+      padding: 0 20px;
+    }
+
+    .text-area {
+      max-width: 550px;
+      font-weight: 600;
+    }
+
+    .small-green-text {
+      font-family: 'Pacifico', cursive;
+      color: #36b235; /* Green color */
+      font-size: 18px;
+      margin-bottom: 6px;
+      font-weight: 400;
+    }
+
+    h1 {
+      font-family: 'Archivo', sans-serif;
+      font-size: 38px;
+      margin-top: 0;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .highlight {
+      font-family: 'Pacifico', cursive;
+      color: #ffcb05;
+      font-weight: 600;
+      font-size: 38px;
+    }
+
+    p.description {
+      font-weight: 400;
+      font-size: 16px;
+      margin-top: 0;
+      margin-bottom: 30px;
+      color: #666;
+    }
+
+    button.order-btn {
+      background: #ffcb05;
+      border: none;
+      padding: 12px 28px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      color: black;
+      box-shadow: 0 4px 7px #fabe2c88;
+      transition: background 0.3s ease;
+    }
+
+    button.order-btn:hover {
+      background: #e6b804;
+    }
+
+    .features {
+      font-size: 14px;
+      color: #b1871d;
+      margin-top: 30px;
+      display: flex;
+      gap: 24px;
+    }
+
+    .features span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .features span::before {
+      content: '•';
+      color: #ffcb05;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .image-area {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .img-container {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 6px 10px rgb(0 0 0 / 0.1);
+      max-width: 400px;
+    }
+
+    .img-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .rating-badge,
+    .happy-customers-badge {
+      position: absolute;
+      background: white;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 3px 8px #ccc;
+      color: #b59f4c;
+      min-width: 70px;
+      text-align: center;
+      font-family: 'Archivo', sans-serif;
+    }
+
+    .rating-badge {
+      top: 12px;
+      right: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #b59f4c;
+      background: #fff;
+    }
+
+    .happy-customers-badge {
+      bottom: 12px;
+      left: 12px;
+      font-size: 16px;
+      color: #fcbf28;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .happy-customers-badge span {
+      font-size: 22px;
+      display: block;
+      font-family: 'Archivo', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">AnyTimeFood <span>FM</span></div>
+    <nav>
+      <a href="#">Dining Out</a>
+      <a href="#">Restaurant</a>
+      <a href="#">About</a>
+      <a href="#" class="order-now">Order Now</a>
+      <a href="#">&#128722;</a>
+      <a href="#">Sign In</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <div class="text-area">
+      <div class="small-green-text">we speak Fluent Food</div>
+      <h1>NO MATTER WHICH <br />CORNER OF THE <br />WORLD <span class="highlight">it's from.</span></h1>
+      <p class="description">Freshly cooked global food bowls. From Tokyo to Tuscany, authentic flavours delivered fresh to your everyday.</p>
+      <button class="order-btn">Order Now &rarr;</button>
+      <div class="features">
+        <span>Cooked to Order</span>
+        <span>Menu Changes Weekly</span>
+        <span>Everyday Pricing</span>
+      </div>
+    </div>
+
+    <div class="image-area">
+      <div class="img-container">
+        <img src="https://media.gettyimages.com/id/1446219647/photo/lunch-break-time.jpg?s=612x612&w=0&k=20&c=fPL5ycUWlyT3m6Dti40nGM9msRJqRVQPlTfz7jyMgGY=" alt="Food Delivery" />
+        <div class="rating-badge">4.1<br/>Rating</div>
+        <div class="happy-customers-badge"><span>7M+</span> Happy Customers</div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

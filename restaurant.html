@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Zomato - Inspiration Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #fafafa;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      color: #232323;
+    }
+    /* Header */
+    .headerbar {
+      display: flex;
+      align-items: center;
+      padding: 26px 38px 0 36px;
+      background: #fff;
+      box-shadow: 0 1px 0 #ededed;
+    }
+    .logo {
+      font-family: 'Montserrat', bold;
+      font-size: 2.1rem;
+      color: #181818;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      margin-right: 20px;
+    }
+    .logo span { color: #ef4f5f; }
+    .location-input, .search-input {
+      border: 1px solid #e4e4e4;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-size: 1rem;
+      background: #f8f8f8;
+      margin-right: 7px;
+      width: 178px;
+    }
+    .search-input {
+      width: 360px;
+      margin-right: 0;
+    }
+    .nav-auth {
+      margin-left: auto;
+      display: flex;
+      gap: 20px;
+      font-family: 'Montserrat',sans-serif;
+      font-weight: 500;
+      color: #444;
+    }
+    .nav-auth a { text-decoration: none; color: #444; }
+    .nav-auth a:hover { color: #ef4f5f; }
+    /* Breadcrumb */
+    .breadcrumb {
+      font-size: 0.97rem;
+      color: #888;
+      padding: 7px 0 5px 38px;
+      background: #fff;
+      font-family: 'Roboto',sans-serif;
+    }
+    /* Nav Tabs */
+    .tabs {
+      display: flex;
+      gap: 44px;
+      align-items: center;
+      padding: 18px 56px 0 56px;
+      background: #fff;
+    }
+    .tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      color: #999;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 7px;
+      transition: color 0.18s;
+    }
+    .tab.selected {
+      color: #ef4f5f;
+    }
+    .tab.selected::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -2px;
+      height: 2.5px;
+      background: #ef4f5f;
+      border-radius: 2px;
+    }
+    .tab svg {
+      width: 36px; height: 36px;
+      margin-bottom: 2px;
+      display: block;
+      opacity: 0.7;
+    }
+    .tab.selected svg { opacity: 1; }
+    /* Filters row */
+    .filters-bar {
+      display: flex;
+      gap: 11px;
+      padding: 20px 0 4px 58px;
+      background: #fff;
+    }
+    .filter-btn, .filter-select {
+      border: 1px solid #dedede;
+      background: #f6f6f6;
+      font-size: 1rem;
+      border-radius: 22px;
+      padding: 6px 21px;
+      color: #888;
+      font-family: 'Montserrat',sans-serif;
+    }
+    .filter-select {
+      padding: 6px 16px;
+    }
+    /* Inspiration Section */
+    .first-order-inspiration {
+      background: #fafafa;
+      padding: 0 0 28px 0;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+    .inspiration-title {
+      text-align: left;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.38rem;
+      font-weight: 600;
+      margin: 44px 0 28px 0;
+      color: #1a1a1a;
+      padding-left: 28px;
+    }
+    .inspiration-list {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      background: #f5f5f5;
+      border-radius: 0 0 18px 18px;
+      padding: 28px 18px;
+      overflow-x: auto;
+      position: relative;
+    }
+    .inspiration-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 92px;
+    }
+    .circle-img {
+      width: 92px;
+      height: 92px;
+      background: #fff;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 2px 7px rgb(130 130 130 / 12%);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.2s;
+    }
+    .circle-img.highlight {
+      background: #fbd2e4;
+    }
+    .circle-img img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .inspiration-label {
+      font-size: 1.09rem;
+      color: #353535;
+      font-family: 'Roboto', sans-serif;
+      margin-top: 4px;
+    }
+    .carousel-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 18px;
+      font-size: 2rem;
+      color: #bbb;
+      cursor: pointer;
+    }
+    /* Brands Section */
+    .top-brands-section {
+      background: #fff;
+      padding: 0 0 38px 0;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+    .brands-title {
+      text-align: left;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.36rem;
+      font-weight: 600;
+      margin: 35px 0 22px 0;
+      color: #1a1a1a;
+      padding-left: 28px;
+    }
+    .brands-list {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      background: #fff;
+      padding: 18px 18px;
+      border-radius: 0 0 18px 18px;
+      overflow-x: auto;
+      position: relative;
+    }
+    .brand-item {
+      min-width: 82px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .brand-circle {
+      width: 84px;
+      height: 84px;
+      background: #fff;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 2px 7px rgb(100 100 100 / 13%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-circle img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 50%;
+    }
+    /* Responsive */
+    @media (max-width:900px) {
+      .inspiration-list, .brands-list { gap: 21px; }
+      .headerbar {padding: 18px 10px;}
+      .filters-bar {padding-left: 15px;}
+    }
+
+    .food-order-grid-section {
+  max-width: 1200px;
+  margin: 0 auto 48px auto;
+  padding: 4px 28px 0 28px;
+}
+.food-order-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 34px 26px;
+  justify-content: flex-start;
+}
+.food-order-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgb(100 100 100 / 11%);
+  overflow: hidden;
+  width: 320px;
+  margin-bottom: 0;
+  transition: box-shadow 0.19s, transform 0.19s;
+  display: flex;
+  flex-direction: column;
+}
+.food-order-card:hover {
+  box-shadow: 0 8px 32px rgb(239 79 95 / 13%);
+  transform: translateY(-5px) scale(1.01);
+}
+.food-card-img-wrap {
+  position: relative;
+  height: 165px;
+  width: 100%;
+  overflow: hidden;
+  background: #ededed;
+}
+.food-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card-badge {
+  position: absolute;
+  bottom: 13px;
+  left: 0;
+  background: #2874f0;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 5px 17px 5px 13px;
+  border-top-right-radius: 13px;
+  border-bottom-right-radius: 13px;
+  z-index: 2;
+  font-family: 'Montserrat',sans-serif;
+}
+.card-badge.blue { background: #2874f0; }
+.card-promoted {
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  background: rgba(30,30,30,0.66);
+  color: #fff;
+  font-size: 0.91rem;
+  padding: 2px 11px;
+  border-radius: 10px;
+  z-index: 2;
+  font-family: 'Roboto',sans-serif;
+}
+.food-order-info {
+  padding: 18px 14px 13px 17px;
+  display: flex;
+  flex-direction: column;
+  min-height: 96px;
+}
+.food-order-title {
+  font-family: 'Montserrat',sans-serif;
+  font-size: 1.06rem;
+  font-weight: bold;
+  margin-bottom: 3px;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.food-rating {
+  background: #228c42;
+  color: white;
+  padding: 2px 8px 2px 8px;
+  font-size: 0.93rem;
+  font-weight: 600;
+  border-radius: 14px;
+  vertical-align: middle;
+  display: inline-block;
+  margin-left: 4px;
+}
+.food-rating.grey {
+  background: #888;
+}
+.food-order-desc {
+  color: #888;
+  font-size: 0.96rem;
+  margin-bottom: 7px;
+}
+.food-order-meta {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  gap: 7px;
+  color: #555;
+  margin-bottom: 2px;
+}
+.meta-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: #ccc;
+  border-radius: 50%;
+  margin: 0 6px;
+}
+@media (max-width: 1050px) {
+  .food-order-card-list { justify-content: center; }
+  .food-order-card { width: 90vw; max-width: 340px; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="headerbar">
+    <span class="logo"><span>zoma</span>to</span>
+    <input class="location-input" value="Gurgaon" />
+    <input class="search-input" placeholder="Search for restaurant, cuisine or a dish" />
+    <div class="nav-auth">
+      <a href="#">Log in</a>
+      <a href="#">Sign up</a>
+    </div>
+  </div>
+  <div class="breadcrumb">
+    Home / India / Delhi NCR / Gurgaon Restaurants
+  </div>
+  <div class="tabs">
+    <div class="tab">
+      <!-- Dining Out SVG icon -->
+      <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="12" r="6" stroke="#888" stroke-width="1.6"/><path d="M6 26c0-4 4.477-7.5 10-7.5S26 22 26 26" stroke="#888" stroke-width="1.6" stroke-linecap="round"/></svg>
+      Dining Out
+    </div>
+    <div class="tab selected">
+      <svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="12" rx="2" stroke="#ef4f5f" stroke-width="1.4"/><path d="M10 23v2h12v-2" stroke="#ef4f5f" stroke-width="1.4" stroke-linecap="round"/></svg>
+      Delivery
+    </div>
+    <div class="tab">
+      <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="8" stroke="#888" stroke-width="1.4"/><path d="M16 10v8l6 3" stroke="#888" stroke-width="1.4" stroke-linecap="round"/></svg>
+      Nightlife
+    </div>
+  </div>
+  <div class="filters-bar">
+    <button class="filter-btn">Filters</button>
+    <button class="filter-btn">Pure Veg</button>
+    <select class="filter-select">
+      <option selected>Cuisines</option>
+      <option>Pizza</option>
+      <option>Biryani</option>
+      <option>Burger</option>
+      <option>Cake</option>
+      <option>Rolls</option>
+    </select>
+  </div>
+  <section class="first-order-inspiration">
+    <h2 class="inspiration-title">Inspiration for your first order</h2>
+    <div class="inspiration-list">
+      <div class="inspiration-item">
+        <div class="circle-img"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=120&q=80" alt="Pizza"/></div>
+        <div class="inspiration-label">Pizza</div>
+      </div>
+      <div class="inspiration-item">
+        <div class="circle-img"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=120&q=80" alt="Biryani"/></div>
+        <div class="inspiration-label">Biryani</div>
+      </div>
+      <div class="inspiration-item">
+        <div class="circle-img"><img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=120&q=80" alt="Burger"/></div>
+        <div class="inspiration-label">Burger</div>
+      </div>
+      <div class="inspiration-item">
+        <div class="circle-img highlight"><img src="https://images.unsplash.com/photo-1506368083636-6defb67639e3?auto=format&fit=crop&w=120&q=80" alt="Cake"/></div>
+        <div class="inspiration-label">Cake</div>
+      </div>
+      <div class="inspiration-item">
+        <div class="circle-img"><img src="https://images.unsplash.com/photo-1542444459-db68bbcf62d4?auto=format&fit=crop&w=120&q=80" alt="Veg Meal"/></div>
+        <div class="inspiration-label">Veg Meal</div>
+      </div>
+      <div class="inspiration-item">
+        <div class="circle-img"><img src="https://images.unsplash.com/photo-1458642849426-cfb724f15ef7?auto=format&fit=crop&w=120&q=80" alt="Rolls"/></div>
+        <div class="inspiration-label">Rolls</div>
+      </div>
+      <span class="carousel-arrow">&#9654;</span>
+    </div>
+  </section>
+  <section class="top-brands-section">
+    <h2 class="brands-title">Top brands for you</h2>
+    <div class="brands-list">
+      <div class="brand-item">
+        <div class="brand-circle"><img src="https://seeklogo.com/images/D/domino-s-pizza-logo-46496CA1DB-seeklogo.com.png" alt="Domino's"/></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-circle"><img src="https://1000logos.net/wp-content/uploads/2021/06/Subway-logo.png" alt="Subway"/></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-circle"><img src="https://1000logos.net/wp-content/uploads/2017/03/Burger-King-Logo.png" alt="Burger King"/></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-circle"><img src="https://www.freepnglogos.com/uploads/kfc-logo-png/kfc-logo-png-transparent-image-0.png" alt="KFC"/></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Box8_logo.png" alt="BOX8"/></div>
+      </div>
+      <div class="brand-item">
+        <div class="brand-circle"><img src="https://play-lh.googleusercontent.com/wEDgctalw-j9qcdSwVnXzQrBKn2pfh0cTvHhSNbXgcKekD0JEhxRUnJNB3sHl5i9Ag" alt="La Pino's Pizza"/></div>
+      </div>
+      <span class="carousel-arrow">&#9654;</span>
+    </div>
+  </section>
+  <section class="food-order-grid-section">
+  <div class="food-order-card-list">
+    <!-- Card 1 -->
+    <div class="food-order-card">
+      <div class="food-card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80" alt="Rominus Pizza And Burger" />
+        <span class="card-badge blue">Flat 25% OFF</span>
+        <span class="card-promoted">Promoted</span>
+      </div>
+      <div class="food-order-info">
+        <div class="food-order-title">Rominus Pizza And Burger
+          <span class="food-rating">3.8</span>
+        </div>
+        <div class="food-order-desc">Pizza, Fast Food, Burger</div>
+        <div class="food-order-meta">
+          <span>&#8377;200 for one</span>
+          <span class="meta-dot"></span>
+          <span>28 min</span>
+        </div>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="food-order-card">
+      <div class="food-card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=400&q=80" alt="Burger King" />
+        <span class="card-badge blue">50% OFF</span>
+      </div>
+      <div class="food-order-info">
+        <div class="food-order-title">Burger King
+          <span class="food-rating">4.0</span>
+        </div>
+        <div class="food-order-desc">Burger, Fast Food, Desserts</div>
+        <div class="food-order-meta">
+          <span>&#8377;200 for one</span>
+          <span class="meta-dot"></span>
+          <span>34 min</span>
+        </div>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="food-order-card">
+      <div class="food-card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?auto=format&fit=crop&w=400&q=80" alt="NH1 Bowls - Highway To North" />
+        <span class="card-badge blue">Flat 15% OFF</span>
+        <span class="card-promoted">Promoted</span>
+      </div>
+      <div class="food-order-info">
+        <div class="food-order-title">NH1 Bowls - Highway To North
+          <span class="food-rating">4.5</span>
+        </div>
+        <div class="food-order-desc">North Indian, Fast Food</div>
+        <div class="food-order-meta">
+          <span>&#8377;100 for one</span>
+          <span class="meta-dot"></span>
+          <span>27 min</span>
+        </div>
+      </div>
+    </div>
+    <!-- Card 4 -->
+    <div class="food-order-card">
+      <div class="food-card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80" alt="Shahi Muradabadi Chicken Biryani" />
+        <span class="card-badge blue">50% OFF</span>
+        <span class="card-promoted">Promoted</span>
+      </div>
+      <div class="food-order-info">
+        <div class="food-order-title">Shahi Muradabadi Chicken Biriyani
+          <span class="food-rating">4.1</span>
+        </div>
+        <div class="food-order-desc">Biryani, North Indian</div>
+        <div class="food-order-meta">
+          <span>&#8377;200 for one</span>
+          <span class="meta-dot"></span>
+          <span>23 min</span>
+        </div>
+      </div>
+    </div>
+    <!-- Card 5 -->
+    <div class="food-order-card">
+      <div class="food-card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80" alt="Domino's Pizza" />
+        <span class="card-badge blue">50% OFF</span>
+      </div>
+      <div class="food-order-info">
+        <div class="food-order-title">Domino's Pizza
+          <span class="food-rating">4.1</span>
+        </div>
+        <div class="food-order-desc">Pizza, Beverages, Desserts</div>
+        <div class="food-order-meta">
+          <span>&#8377;150 for one</span>
+          <span class="meta-dot"></span>
+          <span>34 min</span>
+        </div>
+      </div>
+    </div>
+    <!-- Card 6 -->
+    <div class="food-order-card">
+      <div class="food-card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=400&q=80" alt="DN Snacks" />
+        <span class="card-badge">₹125 OFF</span>
+      </div>
+      <div class="food-order-info">
+        <div class="food-order-title">DN Snacks - Indian Chinese & ...
+          <span class="food-rating grey">3.9</span>
+        </div>
+        <div class="food-order-desc">North Indian, Fast Food, Biryani</div>
+        <div class="food-order-meta">
+          <span>&#8377;200 for one</span>
+          <span class="meta-dot"></span>
+          <span>28 min</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
