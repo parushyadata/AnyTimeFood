@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnyTimeFood</title>
+  <style>
+
+:root {
+    --primary-yellow: #FFD700;
+    --dark-text: #2c3e50;    
+    --light-grey: #f4f4f4;
+}
+
+#about-us {
+    padding: 60px 20px;
+    background-color: white; 
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.about-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-header h2 {
+    font-size: 36px;
+    color: var(--dark-text);
+    font-weight: 600;
+}
+
+.underline {
+    width: 80px;
+    height: 4px;
+    background-color: var(--primary-yellow);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.about-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.text-block {
+    flex: 1; 
+    min-width: 300px;
+    padding: 25px;
+    background-color: var(--light-grey);
+    border-radius: 10px;
+    border-left: 5px solid var(--primary-yellow); 
+}
+
+.text-block h3 {
+    color: var(--dark-text);
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.text-block p, .text-block ul {
+    color: #555;
+    line-height: 1.6;
+}
+
+.text-block ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.text-block ul li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.text-block ul li::before {
+    content: '🍕'; 
+    position: absolute;
+    left: 0;
+    font-size: 14px;
+    top: 2px;
+}
+
+.emoji {
+    font-size: 30px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.highlight-text {
+    font-style: italic;
+    color: var(--dark-text);
+    font-weight: 500;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+    margin-top: 15px;
+}
+
+.image-placeholder {
+    flex-basis: 300px;
+    background-color: var(--light-yellow); 
+    border-radius: 10px;
+    min-height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark-text);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+.about-stats {
+    background-color: var(--primary-yellow);
+    padding: 25px 30px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.stat-item {
+    text-align: center;
+    color: var(--dark-text);
+    min-width: 120px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+    }
+
+    .image-placeholder {
+        order: -1;
+        flex-basis: auto;
+    }
+    
+    .about-stats {
+        justify-content: center;
+    }
+}
+  </style>
+</head>
+<body>
+  <section id="about-us">
+    <div class="about-container">
+        <div class="about-header">
+            <h2>Our Story: Powered by Passion & Plates</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="about-content">
+            <div class="text-block mission">
+                <span class="emoji">🚀</span>
+                <h3>Our Mission</h3>
+                <p>
+                    We started AnyTimeFood with a simple, hungry thought: Why should great food be hard to get? Our mission is to bridge the gap between your favorite local kitchens and your front door, making every craving instantly accessible.
+                </p>
+                <p class="highlight-text">
+                    We deliver happiness, one perfectly packaged meal at a time.
+                </p>
+            </div>
+
+            <div class="text-block values">
+                <span class="emoji">⭐</span>
+                <h3>The AnyTimeFood Promise</h3>
+                <ul>
+                    <li>Speed: Our riders are focused on getting your order to you while it's still piping hot.</li>
+                    <li>Quality: We partner only with restaurants that meet our high standards for freshness and safety.</li>
+                    <li>Trust: Transparent tracking and 24/7 support means you're always in the loop.</li>
+                </ul>
+            </div>
+            
+            <div class="image-placeholder">
+                
+            </div>
+        </div>
+
+        <div class="about-stats">
+            <div class="stat-item">
+                <span class="stat-number">7,000+</span>
+                <span class="stat-label">Happy Customers Served</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Local Restaurants Partnered</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">15 Mins</span>
+                <span class="stat-label">Average Delivery Time</span>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
